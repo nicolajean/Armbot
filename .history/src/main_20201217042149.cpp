@@ -45,8 +45,11 @@ Servo Bras1;
 Servo Bras2;
 Servo Bras3;
 Servo RotationBras;
+int pos = 0;             // variable permettant de conserver la position du servo
+int angle_initial = 0;   //angle initial
+int angle_final = 180;   //angle final
 int increment = 1;       //incrément entre chaque position
-
+bool angle_actuel = false;
 
 // Variables potentiometre
 int potPin = A6;
@@ -60,19 +63,19 @@ int potVal;
 void setup() {
     // Servo
     pince.attach(pinPince);
-    //RotationPince.attach(pinRotationPince);
-    //Bras1.attach(pinBras1);
-    //Bras2.attach(pinBras2);
-    //Bras3.attach(pinBras3);
-    //RotationBras.attach(pinRotationBras);
+    RotationPince.attach(pinRotationPince);
+    Bras1.attach(pinBras1);
+    Bras2.attach(pinBras2);
+    Bras3.attach(pinBras3);
+    RotationBras.attach(pinRotationBras);
 
     // Set initial servo postion
-    pince.write(0);
-    //RotationPince.write(90);
-    //Bras1.write(90);
-    //Bras2.write(90);
-    //Bras3.write(90);
-    //RotationBras.write(90);
+    pince.write(180);
+    RotationPince.write(90);
+    Bras1.write(90);
+    Bras2.write(90);
+    Bras3.write(90);
+    RotationBras.write(90);
 
     // potentionmetre
     pinMode(potPin, INPUT);
@@ -88,7 +91,7 @@ void loop() {
   int delayServo = map(potVal, 0, 1024, 15, 50);
   Serial.print("delay:"); Serial.print(potVal); Serial.print(" - "); Serial.println(delayServo); 
 
-  // Mesure des valeurs en X et Y des joysticks
+  // Mesure des valeurs en X et Y des joystick
   rawX1 = analogRead(X1);
   rawX2 = analogRead(X2);
   rawX3 = analogRead(X3);
@@ -96,21 +99,13 @@ void loop() {
   rawY2 = analogRead(Y2);
   rawY3 = analogRead(Y3);
 
-  Serial.println(rawY3);
-
   int posPince = pince.read();
-   Serial.println(posPince);
-  if (rawY3 < 511) {
-    pince.write(posPince - increment); 
-  }
-  if (rawY3 >= 512) {
-    pince.write(posPince + increment); 
-  } 
+  pince.write(pos + increment); 
   delay(delayServo);
 
 
 
-delay(500);
+
 
 
 }

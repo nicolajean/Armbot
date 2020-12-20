@@ -67,7 +67,7 @@ void setup() {
     //RotationBras.attach(pinRotationBras);
 
     // Set initial servo postion
-    pince.write(0);
+    pince.write(180);
     //RotationPince.write(90);
     //Bras1.write(90);
     //Bras2.write(90);
@@ -99,7 +99,6 @@ void loop() {
   Serial.println(rawY3);
 
   int posPince = pince.read();
-   Serial.println(posPince);
   if (rawY3 < 511) {
     pince.write(posPince - increment); 
   }
@@ -110,7 +109,7 @@ void loop() {
 
 
 
-delay(500);
+
 
 
 }

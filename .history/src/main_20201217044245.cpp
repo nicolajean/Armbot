@@ -67,7 +67,7 @@ void setup() {
     //RotationBras.attach(pinRotationBras);
 
     // Set initial servo postion
-    pince.write(0);
+    pince.write(90);
     //RotationPince.write(90);
     //Bras1.write(90);
     //Bras2.write(90);
@@ -110,7 +110,7 @@ void loop() {
 
 
 
-delay(500);
+
 
 
 }

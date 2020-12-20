@@ -67,12 +67,12 @@ void setup() {
     //RotationBras.attach(pinRotationBras);
 
     // Set initial servo postion
-    pince.write(0);
+    pince.write(180);
     //RotationPince.write(90);
     //Bras1.write(90);
     //Bras2.write(90);
     //Bras3.write(90);
-    //RotationBras.write(90);
+    RotationBras.write(90);
 
     // potentionmetre
     pinMode(potPin, INPUT);
@@ -96,21 +96,20 @@ void loop() {
   rawY2 = analogRead(Y2);
   rawY3 = analogRead(Y3);
 
-  Serial.println(rawY3);
+  Serial.println(rawX1);
 
   int posPince = pince.read();
-   Serial.println(posPince);
-  if (rawY3 < 511) {
-    pince.write(posPince - increment); 
+  if (rawX1 < 511) {
+    //pince.write(posPince - increment); 
   }
-  if (rawY3 >= 512) {
-    pince.write(posPince + increment); 
+  if (rawX1 >= 512) {
+    //pince.write(posPince + increment); 
   } 
   delay(delayServo);
 
 
 
-delay(500);
+
 
 
 }
