@@ -54,7 +54,7 @@ Servo RotationBras;
 // Variables potentiometre
 int potPin      = A6;
 int delayServo  = 50;
-int potVal;     
+int potVal, increment;      
 
 
 /* --------------------------------------------------------
@@ -89,7 +89,13 @@ void loop() {
 
   // calcul de la vitesse de mouvement.
   potVal = analogRead(potPin);
-  delayServo = map(potVal, 0, 1024, 15, 50);
+  if (potVal <= 205) ( increment = 1);
+  if ((potVal > 205) && (potVal <= 410))  ( increment = 2);
+  if ((potVal > 410) && (potVal <= 615))  ( increment = 3);
+  if ((potVal > 615) && (potVal <= 820))  ( increment = 4);
+  if ((potVal > 820) && (potVal <= 1024)) ( increment = 5);
+  
+  int decrementVal = increment;
 
   // Mesure des valeurs en X et Y des joysticks
   rawX1 = analogRead(X1);
@@ -149,6 +155,13 @@ void loop() {
     if (RotationBrasValue < 0)    { RotationBrasValue = 0;   }  
   }
 
-delay(delayServo); // vitesse Servo
+
+
+  delay(delayServo);
+
+
+
+
+
 
 }

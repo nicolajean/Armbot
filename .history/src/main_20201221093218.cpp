@@ -54,7 +54,7 @@ Servo RotationBras;
 // Variables potentiometre
 int potPin      = A6;
 int delayServo  = 50;
-int potVal;     
+int potVal, increment;      
 
 
 /* --------------------------------------------------------
@@ -89,7 +89,13 @@ void loop() {
 
   // calcul de la vitesse de mouvement.
   potVal = analogRead(potPin);
-  delayServo = map(potVal, 0, 1024, 15, 50);
+  if (potVal <= 205) ( increment = 1);
+  if ((potVal > 205) && (potVal <= 410))  ( increment = 2);
+  if ((potVal > 410) && (potVal <= 615))  ( increment = 3);
+  if ((potVal > 615) && (potVal <= 820))  ( increment = 4);
+  if ((potVal > 820) && (potVal <= 1024)) ( increment = 5);
+  
+  Serial.print("delay:"); Serial.print(potVal); Serial.print(" - "); 
 
   // Mesure des valeurs en X et Y des joysticks
   rawX1 = analogRead(X1);
@@ -103,7 +109,7 @@ void loop() {
   if (rawX1 > 520 || rawX1 < 500) {
     int val1 = map(rawX1, 0, 1023, -1, +1);  
     PinceValue = PinceValue + val1;       
-    if ( (PinceValue <= 140) && (PinceValue >= 40) ) { Pince.write(PinceValue);  } // limitation du mouvement de la pince, sinon ca consome 1.5A au lieu de 0.2A
+    if (PinceValue <= 180) { Pince.write(PinceValue);  }
     if (PinceValue > 180)  { PinceValue = 180; }
     if (PinceValue < 0)    { PinceValue = 0;   }  
   }
@@ -140,15 +146,14 @@ void loop() {
     if (Bras3Value > 180)  { Bras3Value = 180; }
     if (Bras3Value < 0)    { Bras3Value = 0;   }  
   }
-    // Bouger le servo RotationBras
-  if (rawX3 > 520 || rawX3 < 500) {
-    int val6 = map(rawX3, 0, 1023, -1, +1); 
-    RotationBrasValue = RotationBrasValue + val6;       
-    if (RotationBrasValue <= 180) { RotationBras.write(RotationBrasValue);  }
-    if (RotationBrasValue > 180)  { RotationBrasValue = 180; }
-    if (RotationBrasValue < 0)    { RotationBrasValue = 0;   }  
-  }
 
-delay(delayServo); // vitesse Servo
+
+
+  delay(delayServo);
+
+
+
+
+
 
 }

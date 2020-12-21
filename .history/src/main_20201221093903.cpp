@@ -149,6 +149,6 @@ void loop() {
     if (RotationBrasValue < 0)    { RotationBrasValue = 0;   }  
   }
 
-delay(delayServo); // vitesse Servo
+delay(delayServo);
 
 }
